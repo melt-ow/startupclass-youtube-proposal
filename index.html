@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>スタートアップクラス YouTubeショート 企画書 vol.1</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
+    background: #f5f7fa;
+    color: #2c3e50;
+    line-height: 1.6;
+    padding: 0;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #fff;
+    padding: 40px 20px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 32px;
+    background: linear-gradient(90deg, #ffd93d, #ff6b6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+  }
+  header .meta {
+    color: #aaa;
+    font-size: 14px;
+  }
+  .toc {
+    background: #fff;
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .toc h2 {
+    color: #1a1a2e;
+    margin-bottom: 16px;
+    font-size: 18px;
+  }
+  .toc ol {
+    padding-left: 20px;
+  }
+  .toc li {
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+  .toc a {
+    color: #2c3e50;
+    text-decoration: none;
+  }
+  .toc a:hover { color: #ff6b6b; }
+  .plan-block {
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    border-top: 4px solid #ff6b6b;
+  }
+  .plan-block.p2 { border-top-color: #4ecdc4; }
+  .plan-block.p3 { border-top-color: #ffd93d; }
+  .plan-block.p4 { border-top-color: #6c5ce7; }
+  .plan-block.p5 { border-top-color: #1a1a2e; }
+  .plan-block.p6 { border-top-color: #5dade2; }
+  .plan-block.p7 { border-top-color: #82c4a0; }
+  .plan-block.p8 { border-top-color: #b39ddb; }
+  .divider {
+    margin: 40px 0 24px;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #f0f4f8 0%, #e8f0f5 100%);
+    border-radius: 12px;
+    text-align: center;
+    color: #1a1a2e;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+  }
+  .divider .sub {
+    display: block;
+    font-size: 11px;
+    color: #888;
+    font-weight: 400;
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+  .plan-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eee;
+  }
+  .plan-title-area h3 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    color: #1a1a2e;
+  }
+  .plan-num {
+    font-size: 11px;
+    color: #ff6b6b;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 4px;
+  }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-left: 6px;
+  }
+  .b-success { background: #4ecdc4; color: #fff; }
+  .b-warning { background: #ffd93d; color: #000; }
+  .b-danger { background: #ff6b6b; color: #fff; }
+  .b-info { background: #6c5ce7; color: #fff; }
+  .b-dark { background: #1a1a2e; color: #fff; }
+  .alert {
+    padding: 16px;
+    border-radius: 8px;
+    margin: 16px 0;
+    border-left: 4px solid;
+  }
+  .alert-success { background: #e8f8f5; border-color: #4ecdc4; }
+  .alert-warning { background: #fff8e1; border-color: #ffd93d; }
+  .alert-danger { background: #ffebee; border-color: #ff6b6b; }
+  .alert-info { background: #e3f2fd; border-color: #6c5ce7; }
+  .alert h4 { margin-top: 0; margin-bottom: 8px; }
+  .highlight {
+    background: linear-gradient(transparent 65%, #ffd93d 65%);
+    padding: 0 2px;
+    font-weight: 700;
+  }
+  .tlp {
+    display: inline-block;
+    background: linear-gradient(transparent 65%, #ffd93d 65%);
+    padding: 0 4px;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  th {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+  tr:nth-child(even) { background: #f9f9f9; }
+  tr:hover { background: #fff3e0; }
+  .script-table th:nth-child(1) { width: 70px; }
+  .script-table th:nth-child(3) { width: 30%; }
+  .sec-num {
+    color: #ff6b6b;
+    font-weight: 700;
+    font-family: -apple-system, "SF Pro Display", system-ui;
+  }
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    color: #888;
+    font-size: 12px;
+  }
+  @media (max-width: 768px) {
+    table { font-size: 12px; }
+    .plan-block { padding: 20px; }
+    header h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+  <h1>🎬 スタートアップクラス YouTubeショート 企画書 vol.1</h1>
+  <p class="meta">対象: 株式会社スタートアップクラス 代表取締役 藤岡清高 氏 | 形式: 55秒 × 5本 | 2026.05.12</p>
+</header>
+
+<div class="toc">
+  <h2>📑 目次</h2>
+  <ol>
+    <li><a href="#plan1">① スタートアップ転職、98%の人にはおすすめしません</a></li>
+    <li><a href="#plan2">② 年収300万下げて入った人が、泣いて喜んだ会社</a></li>
+    <li><a href="#plan3">③ ホリエモンに "CMに出てくれ" と頼みに行った日</a></li>
+    <li><a href="#plan4">④ 私が "絶対に掲載しない" 経営者の特徴</a></li>
+    <li><a href="#plan5">⑤ 2029年、ホワイト企業に転職した人が泣きます</a></li>
+    <li><a href="#plan6">⑥ 日本のスタートアップが、いま本当に面白い3つの理由</a></li>
+    <li><a href="#plan7">⑦ スタートアップで伸びる人が、毎朝やっている3つのこと</a></li>
+    <li><a href="#plan8">⑧ 面接で、私が必ず聞く "幸せの定義" の話</a></li>
+  </ol>
+</div>
+
+
+<!-- ===== 企画① ===== -->
+<div id="plan1" class="plan-block">
+  <div class="plan-head">
+    <div class="plan-title-area">
+      <div class="plan-num">PLAN 01 / 本命</div>
+      <h3>① スタートアップ転職、98%の人にはおすすめしません</h3>
+    </div>
+    <div>
+      <span class="badge b-danger">★本命</span>
+      <span class="badge b-dark">逆張り</span>
+      <span class="badge b-warning">否定フック</span>
+    </div>
+  </div>
+
+  <div class="alert alert-danger">
+    <h4>🎯 狙い</h4>
+    <p>1本目で<span class="highlight">「正直に"やめとけ"と言える人」のキャラを確立</span>。
+    コメント誘発で初動エンゲージを確保し、レコメンドの初速をつける。</p>
+  </div>
+
+  <table class="script-table">
+    <thead>
+      <tr><th>SEC</th><th>セリフ／演出</th><th>テロップ</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="sec-num">0–3</td><td>「スタートアップに転職したい人、ちょっと待ってください」（カメラまっすぐ）</td><td><span class="tlp">⚠ 98%の人は向いてない</span></td></tr>
+      <tr><td class="sec-num">4–7</td><td>「私、14年間で1万5千人以上のスタートアップ転職を見てきました」</td><td><span class="tlp">スタクラ代表 藤岡清高</span></td></tr>
+      <tr><td class="sec-num">8–10</td><td>「その経験から正直に言います」（一拍）</td><td>—</td></tr>
+      <tr><td class="sec-num">11–13</td><td>「向いてない人の特徴、3つ」</td><td><span class="tlp">NG ① ② ③</span></td></tr>
+      <tr><td class="sec-num">14–21</td><td>「①給料が下がるのが本気で嫌な人。"裁量がほしい"と言いながら年収シートでスクロールが止まる人、絶対に後悔します」</td><td><span class="tlp">① 年収シートで止まる人</span></td></tr>
+      <tr><td class="sec-num">22–30</td><td>「②大企業の名刺で仕事してきた自覚がない人。SUは"あなた個人"を見られます。先月も大手から来た方が3ヶ月で出戻りしました」</td><td><span class="tlp">② 名刺がないと動けない人</span></td></tr>
+      <tr><td class="sec-num">31–39</td><td>「③"裁量"という言葉に酔ってる人。裁量とは"全部自分で決める責任"です。指示待ちの裏返しで欲しがると地獄を見ます」</td><td><span class="tlp">③ 裁量に酔ってる人</span></td></tr>
+      <tr><td class="sec-num">40–46</td><td>「逆に、この3つに当てはまらない人は、今が人生で一番動くべきタイミングです」</td><td><span class="tlp">当てはまらない人は今すぐ動け</span></td></tr>
+      <tr><td class="sec-num">47–52</td><td>「2029年、安定を選んだ人が泣く時代が来ます。私は本気でそう思ってます」</td><td>—</td></tr>
+      <tr><td class="sec-num">53–58</td><td>「どれが当てはまったか、コメントで教えてください」</td><td><span class="tlp">①②③ コメントで教えて</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ===== 企画② ===== -->
+<div id="plan2" class="plan-block p2">
+  <div class="plan-head">
+    <div class="plan-title-area">
+      <div class="plan-num">PLAN 02 / 求職者直撃</div>
+      <h3>② 年収300万下げて入った人が、泣いて喜んだ会社</h3>
+    </div>
+    <div>
+      <span class="badge b-success">求職者</span>
+      <span class="badge b-dark">数字×タブー</span>
+      <span class="badge b-warning">保存型</span>
+    </div>
+  </div>
+
+  <div class="alert alert-success">
+    <h4>🎯 狙い</h4>
+    <p>"年収を下げる"という<span class="highlight">タブーで止める</span>。
+    抽象論ではなく、3つの見極めポイントを残すことで保存・シェアを誘発。</p>
+  </div>
+
+  <table class="script-table">
+    <thead>
+      <tr><th>SEC</th><th>セリフ／演出</th><th>テロップ</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="sec-num">0–3</td><td>「年収300万下げて入社した人が、半年後に泣いて喜びました」</td><td><span class="tlp">年収−300万でも泣いて喜ぶ</span></td></tr>
+      <tr><td class="sec-num">4–8</td><td>「14年スタートアップだけ見てきた私が、何度も目撃した光景です」</td><td><span class="tlp">スタクラ代表 藤岡清高</span></td></tr>
+      <tr><td class="sec-num">9–13</td><td>「全員に共通する"会社の見極めポイント"が3つあります」</td><td><span class="tlp">全員共通の3ポイント</span></td></tr>
+      <tr><td class="sec-num">14–23</td><td>「①社長が"撤退ライン"を即答できる。"いくら使ったら畳むか"の話を、面接で堂々とできる経営者は強い」</td><td><span class="tlp">① 撤退ラインを即答できる</span></td></tr>
+      <tr><td class="sec-num">24–33</td><td>「②市場の話より"顧客の話"が長い。1人の顧客のエピソードで30分話せる経営者は、まず外しません」</td><td><span class="tlp">② 顧客の話が長い</span></td></tr>
+      <tr><td class="sec-num">34–43</td><td>「③ストックオプションの設計に思想がある。"何枚配るか"じゃなく"なぜ配るか"を語れるかどうか」</td><td><span class="tlp">③ SOに思想がある</span></td></tr>
+      <tr><td class="sec-num">44–51</td><td>「この3つが揃っている会社、年収が一時的に下がっても5年で必ず取り戻せます」</td><td><span class="tlp">5年で必ず取り戻せる</span></td></tr>
+      <tr><td class="sec-num">52–58</td><td>「うちのスタクラ、この基準で全社審査してます。概要欄からどうぞ」</td><td><span class="tlp">▼スタクラ（概要欄）</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ===== 企画③ ===== -->
+<div id="plan3" class="plan-block p3">
+  <div class="plan-head">
+    <div class="plan-title-area">
+      <div class="plan-num">PLAN 03 / リーチ拡大</div>
+      <h3>③ ホリエモンに "CMに出てくれ" と頼みに行った日</h3>
+    </div>
+    <div>
+      <span class="badge b-warning">人物リーチ</span>
+      <span class="badge b-dark">裏側エピソード</span>
+      <span class="badge b-success">エンタメ</span>
+    </div>
+  </div>
+
+  <div class="alert alert-warning">
+    <h4>🎯 狙い</h4>
+    <p>堀江氏の名前で<span class="highlight">経営者・起業家層へのリーチを広げる</span>。
+    「決断速度」という業界文化の話に着地させ、求職者にも教訓を残す。</p>
+  </div>
+
+  <table class="script-table">
+    <thead>
+      <tr><th>SEC</th><th>セリフ／演出</th><th>テロップ</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="sec-num">0–3</td><td>「堀江さんに、面と向かって"CMに出てください"と言いに行きました」</td><td><span class="tlp">ホリエモンに直談判</span></td></tr>
+      <tr><td class="sec-num">4–9</td><td>「アマテラスからスタートアップクラスに社名変える、その直前の話です」</td><td><span class="tlp">社名変更の直前</span></td></tr>
+      <tr><td class="sec-num">10–17</td><td>「正直、断られると思ってました。会う前日、台本を5パターン用意して挑みました」</td><td><span class="tlp">台本5パターン用意</span></td></tr>
+      <tr><td class="sec-num">18–26</td><td>「会って3分で、堀江さんがこう言いました。『藤岡さん、なんで僕なの？』」</td><td><span class="tlp">「なんで僕なの？」</span></td></tr>
+      <tr><td class="sec-num">27–36</td><td>「私の答えは『日本のスタートアップの"顔"だからです』。これだけ。そしたら一言、『いいよ』」</td><td><span class="tlp">「いいよ」だけだった</span></td></tr>
+      <tr><td class="sec-num">37–46</td><td>「結局、台本5パターンは1枚も使ってません。経営者の"決断"って、こんな速度なんです」</td><td><span class="tlp">経営者の決断速度</span></td></tr>
+      <tr><td class="sec-num">47–54</td><td>「この速度感に、求職者の方も慣れた方がいい。スタートアップは"即決"の世界です」</td><td><span class="tlp">SUは即決の世界</span></td></tr>
+      <tr><td class="sec-num">55–58</td><td>「続きの裏話、知りたい人はコメントで◯ください」</td><td><span class="tlp">コメントで「◯」</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ===== 企画④ ===== -->
+<div id="plan4" class="plan-block p4">
+  <div class="plan-head">
+    <div class="plan-title-area">
+      <div class="plan-num">PLAN 04 / 権威性確立</div>
+      <h3>④ 私が "絶対に掲載しない" 経営者の特徴</h3>
+    </div>
+    <div>
+      <span class="badge b-info">権威性</span>
+      <span class="badge b-dark">選別者ポジション</span>
+      <span class="badge b-success">リスト型</span>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    <h4>🎯 狙い</h4>
+    <p><span class="highlight">「審査する側」のポジションを社長個人にも乗せる</span>。
+    スタクラの厳選ブランドを人格で体現し、同時に求職者の実用にも繋がる二刀流。</p>
+  </div>
+
+  <table class="script-table">
+    <thead>
+      <tr><th>SEC</th><th>セリフ／演出</th><th>テロップ</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="sec-num">0–3</td><td>「うちのサイト、申請の9割は審査で落としてます」</td><td><span class="tlp">申請の90%は不掲載</span></td></tr>
+      <tr><td class="sec-num">4–8</td><td>「14年で1万社以上見てきた、私の独断と偏見です」</td><td><span class="tlp">14年・1万社以上見てきた</span></td></tr>
+      <tr><td class="sec-num">9–13</td><td>「絶対に載せない経営者、3つの特徴があります」</td><td><span class="tlp">絶対に載せない3つ</span></td></tr>
+      <tr><td class="sec-num">14–22</td><td>「①初対面で自分の話ばかり。顧客の話が一切出てこない。事業より自己実現を語る人」</td><td><span class="tlp">① 顧客より自分の話</span></td></tr>
+      <tr><td class="sec-num">23–32</td><td>「②社員の話をする時に"うちの子たち"と言う。無意識に駒扱いの感覚が滲み出てます」</td><td><span class="tlp">②「うちの子たち」発言</span></td></tr>
+      <tr><td class="sec-num">33–42</td><td>「③市場の話を抽象論でしか語れない。"100兆円市場"とは言うのに、顧客1人の名前が出てこない」</td><td><span class="tlp">③ 顧客1人の名前が出ない</span></td></tr>
+      <tr><td class="sec-num">43–51</td><td>「この3つ、求職者の方も面接で必ずチェックしてください。3つ揃ったら、絶対に行かない方がいい」</td><td><span class="tlp">求職者も面接で要チェック</span></td></tr>
+      <tr><td class="sec-num">52–58</td><td>「他に見抜くポイント、知りたい方はコメントください」</td><td><span class="tlp">見抜き方リクエスト募集</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ===== 企画⑤ ===== -->
+<div id="plan5" class="plan-block p5">
+  <div class="plan-head">
+    <div class="plan-title-area">
+      <div class="plan-num">PLAN 05 / バズ狙い</div>
+      <h3>⑤ 2029年、ホワイト企業に転職した人が泣きます</h3>
+    </div>
+    <div>
+      <span class="badge b-dark">バズ狙い</span>
+      <span class="badge b-danger">危機感×データ</span>
+      <span class="badge b-warning">未来予測</span>
+    </div>
+  </div>
+
+  <div class="alert alert-danger">
+    <h4>🎯 狙い</h4>
+    <p>40代キャリア層の不安を直撃。自社の<span class="highlight">独自データを"預言"として武器化</span>し、シェア・保存の両方を取りに行く。
+    ①の最後の伏線（"2029年、安定を選んだ人が泣く"）をここで回収。</p>
+  </div>
+
+  <table class="script-table">
+    <thead>
+      <tr><th>SEC</th><th>セリフ／演出</th><th>テロップ</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="sec-num">0–3</td><td>「2029年、安定企業に転職した人が、一斉に後悔します」</td><td><span class="tlp">2029年、後悔の時代</span></td></tr>
+      <tr><td class="sec-num">4–8</td><td>「14年スタートアップだけ見てきた私の、本気の予測です」</td><td><span class="tlp">本気で予測します</span></td></tr>
+      <tr><td class="sec-num">9–17</td><td>「事実から話します。40代のスタートアップ転職、2022年比で約8割増。特に45-49歳は2倍超」</td><td><span class="tlp">40代SU転職 +80%・45-49歳は2倍超</span></td></tr>
+      <tr><td class="sec-num">18–27</td><td>「理由①：AIで大企業の中間管理職から消えてます。"安定"の意味が3年前と完全に違う」</td><td><span class="tlp">① 中間管理職から消える</span></td></tr>
+      <tr><td class="sec-num">28–37</td><td>「②給与の伸び、もう逆転してます。スタートアップ平均が大手の年収を上回り始めた」</td><td><span class="tlp">② 給与で大手を逆転</span></td></tr>
+      <tr><td class="sec-num">38–46</td><td>「③ストックオプションが普及して、"5年で家が建つ"が現実的になりつつある」</td><td><span class="tlp">③ SOで5年で家が建つ</span></td></tr>
+      <tr><td class="sec-num">47–53</td><td>「特に40代の方、選択肢があるうちに動いてください。本気で言ってます」</td><td><span class="tlp">40代、選択肢があるうちに</span></td></tr>
+      <tr><td class="sec-num">54–58</td><td>「動き方は、概要欄のスタクラから」</td><td><span class="tlp">▼スタクラ（概要欄）</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="divider">
+  🌿 ここから先：ホワイト系・知的トーンの台本
+  <span class="sub">攻めずに、業界の魅力・習慣ハック・哲学で勝負する3本</span>
+</div>
+
+
+<!-- ===== 企画⑥ ===== -->
+<div id="plan6" class="plan-block p6">
+  <div class="plan-head">
+    <div class="plan-title-area">
+      <div class="plan-num">PLAN 06 / ホワイト・業界応援</div>
+      <h3>⑥ 日本のスタートアップが、いま本当に面白い3つの理由</h3>
+    </div>
+    <div>
+      <span class="badge b-info">ポジティブ</span>
+      <span class="badge b-success">業界応援</span>
+      <span class="badge b-warning">教養</span>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    <h4>🌱 狙い</h4>
+    <p>否定や煽りを使わず、<span class="highlight">業界の魅力で視聴者の関心を引き上げる</span>。
+    SUに直接興味がない層にも届く知的コンテンツとして、チャンネルの懐を広げる。</p>
+  </div>
+
+  <table class="script-table">
+    <thead>
+      <tr><th>SEC</th><th>セリフ／演出</th><th>テロップ</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="sec-num">0–3</td><td>「日本のスタートアップ、いま本当に面白いんです」（少し笑顔）</td><td><span class="tlp">日本のSU、いま面白い</span></td></tr>
+      <tr><td class="sec-num">4–8</td><td>「14年見てきて、これまでで一番ワクワクしてます」</td><td><span class="tlp">スタクラ代表 藤岡清高</span></td></tr>
+      <tr><td class="sec-num">9–13</td><td>「皆さんにも知ってほしい、3つの理由」</td><td><span class="tlp">ワクワクの3つの理由</span></td></tr>
+      <tr><td class="sec-num">14–23</td><td>「①資金の量が、桁違いに変わりました。10年前は1億円が大事業、今は10億円のシード調達が普通になってます」</td><td><span class="tlp">① 資金が10倍に</span></td></tr>
+      <tr><td class="sec-num">24–33</td><td>「②人材の質が、完全に変わりました。大手の超優秀層が、本気でSUを選ぶ時代になってます」</td><td><span class="tlp">② 超優秀層が来始めた</span></td></tr>
+      <tr><td class="sec-num">34–43</td><td>「③グローバルに繋がりました。シリコンバレーや東南アジアと、日本のSUが対等に話せる時代です」</td><td><span class="tlp">③ 世界と対等に</span></td></tr>
+      <tr><td class="sec-num">44–51</td><td>「この3つが揃って、今、本当に面白いタイミングなんです」</td><td><span class="tlp">今が一番面白い</span></td></tr>
+      <tr><td class="sec-num">52–58</td><td>「業界の応援、ぜひしてもらえると嬉しいです」</td><td><span class="tlp">業界を応援してください</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ===== 企画⑦ ===== -->
+<div id="plan7" class="plan-block p7">
+  <div class="plan-head">
+    <div class="plan-title-area">
+      <div class="plan-num">PLAN 07 / ホワイト・習慣ハック</div>
+      <h3>⑦ スタートアップで伸びる人が、毎朝やっている3つのこと</h3>
+    </div>
+    <div>
+      <span class="badge b-success">実用ハック</span>
+      <span class="badge b-info">習慣論</span>
+      <span class="badge b-warning">保存型</span>
+    </div>
+  </div>
+
+  <div class="alert alert-success">
+    <h4>🌅 狙い</h4>
+    <p>誰の悪口も言わず、<span class="highlight">明日から真似できる実用ハック</span>として価値を提供。
+    保存・シェアされやすく、SUに関心がない層にもビジネス系コンテンツとして届く。</p>
+  </div>
+
+  <table class="script-table">
+    <thead>
+      <tr><th>SEC</th><th>セリフ／演出</th><th>テロップ</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="sec-num">0–3</td><td>「スタートアップで一気に伸びる人、共通点があります」</td><td><span class="tlp">伸びる人の共通点</span></td></tr>
+      <tr><td class="sec-num">4–8</td><td>「14年で見てきた数百人の"伸びた人"の話です」</td><td><span class="tlp">数百人の"伸びた人"</span></td></tr>
+      <tr><td class="sec-num">9–13</td><td>「全員、毎朝やってることが3つだけありました」</td><td><span class="tlp">毎朝の3つだけ</span></td></tr>
+      <tr><td class="sec-num">14–23</td><td>「①その日"絶対に動かす数字"を1つだけ決める。タスクじゃなく数字、ここが鍵です」</td><td><span class="tlp">① 動かす数字を1つだけ</span></td></tr>
+      <tr><td class="sec-num">24–33</td><td>「②顧客の声を、必ず1つだけ目に入れる。Slack、メール、なんでもいい。"誰のため"を毎朝思い出すんです」</td><td><span class="tlp">② 顧客の声を必ず1つ</span></td></tr>
+      <tr><td class="sec-num">34–43</td><td>「③15分だけ、絶対に邪魔されない時間を作る。考える時間が、伸びる人と止まる人を分けます」</td><td><span class="tlp">③ 邪魔されない15分</span></td></tr>
+      <tr><td class="sec-num">44–51</td><td>「全部やる必要ないです。今日から1つだけ、試してみてください」</td><td><span class="tlp">1つだけ試してみて</span></td></tr>
+      <tr><td class="sec-num">52–58</td><td>「効いた人、コメントで教えてもらえると嬉しいです」</td><td><span class="tlp">効いた人はコメントで</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ===== 企画⑧ ===== -->
+<div id="plan8" class="plan-block p8">
+  <div class="plan-head">
+    <div class="plan-title-area">
+      <div class="plan-num">PLAN 08 / ホワイト・哲学</div>
+      <h3>⑧ 面接で、私が必ず聞く "幸せの定義" の話</h3>
+    </div>
+    <div>
+      <span class="badge b-info">哲学</span>
+      <span class="badge b-success">人物像</span>
+      <span class="badge b-warning">内省</span>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    <h4>💭 狙い</h4>
+    <p>転職論ではなく、<span class="highlight">人生観・哲学レベルの話</span>で藤岡氏の人格を伝える。
+    視聴者の自己内省を促し、長く心に残る"人物が好きになる"動画を作る。</p>
+  </div>
+
+  <table class="script-table">
+    <thead>
+      <tr><th>SEC</th><th>セリフ／演出</th><th>テロップ</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="sec-num">0–3</td><td>「面接で、私が必ずする質問があります」</td><td><span class="tlp">必ずする質問</span></td></tr>
+      <tr><td class="sec-num">4–8</td><td>「14年スタートアップだけを見てきた中で、確信に変わった質問です」</td><td><span class="tlp">スタクラ代表 藤岡清高</span></td></tr>
+      <tr><td class="sec-num">9–14</td><td>「『あなたにとって、幸せってなんですか？』」（カメラ目線、一拍）</td><td><span class="tlp">「幸せってなんですか？」</span></td></tr>
+      <tr><td class="sec-num">15–23</td><td>「年収を答える方、ポジションを答える方、家族を答える方、全部正解なんです」</td><td><span class="tlp">何を答えても正解</span></td></tr>
+      <tr><td class="sec-num">24–33</td><td>「大事なのは、その人が"自分の言葉"で答えられるかどうか。答えに詰まる人ほど、転職で迷子になります」</td><td><span class="tlp">自分の言葉で答えられるか</span></td></tr>
+      <tr><td class="sec-num">34–43</td><td>「自分の幸せを言語化できる人だけが、自分に合う会社を選べるんです」</td><td><span class="tlp">言語化できる人が選べる</span></td></tr>
+      <tr><td class="sec-num">44–51</td><td>「転職を考えてる方、まずこの質問に、紙に書いてみてください」</td><td><span class="tlp">まず紙に書いてみよう</span></td></tr>
+      <tr><td class="sec-num">52–58</td><td>「あなたなら、なんて答えますか？コメントで聞かせてください」</td><td><span class="tlp">あなたの答えは？</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<footer>
+  — End of Proposal vol.1 (全8本) —<br>
+  Prepared for: 株式会社スタートアップクラス 藤岡清高 様 | 2026.05.12
+</footer>
+
+</div>
+
+</body>
+</html>
